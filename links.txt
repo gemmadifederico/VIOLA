@@ -1,0 +1,13 @@
+dataset
+https://archive.ics.uci.edu/ml/datasets/Activities+of+Daily+Living+%28ADLs%29+Recognition+Using+Binary+Sensors#
+
+decision tree python
+https://www.datacamp.com/tutorial/decision-tree-classification-python
+https://www.geeksforgeeks.org/decision-tree-implementation-python/
+
+papers:
+Event Abstraction for Process Mining using Supervised Learning Techniques, tax et al
+Mining Process Model Descriptions of Daily Life Through Event Abstraction, tax et al
+From Low-Level Events to Activities - A Pattern-Based Approachrough Event Abstraction, felix et al
+Decision Trees for Human Activity Recognition Modelling in Smart House Environments, Veralia Gabriela Sánchez and Nils-Olav Skeie
+Human activity classification using Decision Treeand Na ̈ıve Bayes classifiers, Maswadi et al
