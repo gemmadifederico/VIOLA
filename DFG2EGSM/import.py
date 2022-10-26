@@ -1,7 +1,7 @@
 import pm4py
 import xml.etree.cElementTree as ET
 
-dfg, start_activities, end_activities = pm4py.objects.dfg.importer.importer.apply('./test.dfg')
+dfg, start_activities, end_activities = pm4py.objects.dfg.importer.importer.apply('./test-csv.dfg')
 
 print(dfg)
 print(len(dfg))

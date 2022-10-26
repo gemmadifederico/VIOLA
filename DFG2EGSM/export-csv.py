@@ -33,5 +33,4 @@ print(dfg)
 print(start_activities)
 pm4py.view_dfg(dfg, start_activities, end_activities)
 
-# todo: understand how to pass the list of end activities
-# pm4py.objects.dfg.exporter.exporter.apply(dfg, './test-csv.dfg', pm4py.objects.dfg.exporter.variants.classic, {'END_ACTIVITIES':end_activities})
+pm4py.objects.dfg.exporter.exporter.apply(dfg, './test-csv.dfg', pm4py.objects.dfg.exporter.variants.classic, {pm4py.visualization.dfg.visualizer.Variants.FREQUENCY.value.Parameters.START_ACTIVITIES:start_activities,pm4py.visualization.dfg.visualizer.Variants.FREQUENCY.value.Parameters.END_ACTIVITIES:end_activities})
