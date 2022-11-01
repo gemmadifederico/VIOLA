@@ -28,16 +28,16 @@ def create_rules_recursive(clf,features,node,expression,rules):
         name = features[clf.tree_.feature[node]]
         threshold = clf.tree_.threshold[node]
         if expression != '':
-            expression = expression + ' AND '
-        create_rules_recursive(clf,features,clf.tree_.children_left[node],expression + str(name) + '<=' + str(threshold),rules)
-        create_rules_recursive(clf,features,clf.tree_.children_right[node],expression + str(name) + '>' + str(threshold),rules)
+            expression = expression + ' and '
+        create_rules_recursive(clf,features,clf.tree_.children_left[node],expression + 'GSM.isInfoModel("SensorData", "' + str(name) + '", ' + str(threshold) +', "<=")',rules)
+        create_rules_recursive(clf,features,clf.tree_.children_right[node],expression + 'GSM.isInfoModel("SensorData", "' + str(name) + '", ' + str(threshold) +', ">")',rules)
     # leaf node
     else:
         key = clf.classes_[np.argmax(clf.tree_.value[node])]
         if (key not in rules):
             rules[key] = '(' + expression + ')'
         else:
-            rules[key] = rules[key] + ' OR (' + expression + ')'
+            rules[key] = rules[key] + ' or (' + expression + ')'
 rules = dict()
 
 
@@ -84,12 +84,23 @@ print(succs)
 
 #create information model
 infomodelxsd = ET.Element('xs:schema', {'xmlns:xs':'http://www.w3.org/2001/XMLSchema', 'attributeFormDefault':'unqualified', 'elementFormDefault':'qualified'})
+
+#add corresponding events to information model
+elem = ET.SubElement(infomodelxsd, 'xs:element', {'name':'SensorData'})
+ct = ET.SubElement(elem, 'xs:complexType')
+ET.SubElement(ct, 'xs:attribute', {'name':'timestamp', 'type':'xs:dateTime', 'use':'required'})
+ET.SubElement(ct, 'xs:attribute', {'name':'status', 'type':'xs:string', 'use':'required'})
+for feature in features:
+    ET.SubElement(ct, 'xs:attribute', {'name': feature, 'type':'xs:integer', 'use':'required'})
+    
+
 #create egsm model
 compositeapp = ET.Element('ca:CompositeApplicationType', {'xmlns:ca':'http://siena.ibm.com/model/CompositeApplication', 'version':'2.0', 'name':'Definitions_1_application'})
 eventmodel = ET.SubElement(compositeapp, 'ca:EventModel', {'id':'Definitions_1_eventModel', 'name':'Definitions_1_eventModel'})
-for activity in pres:
-    event = ET.SubElement(eventmodel, 'ca:Event', {'id': activity+'_s', 'name': activity+'_s'})
-    event = ET.SubElement(eventmodel, 'ca:Event', {'id': activity+'_e', 'name': activity+'_e'})
+
+event = ET.SubElement(eventmodel, 'ca:Event', {'id': 'SensorData_e', 'name': 'SensorData_e'})
+event = ET.SubElement(eventmodel, 'ca:Event', {'id': 'SensorData_l', 'name': 'SensorData_l'})
+
 definitions = ET.SubElement(compositeapp, 'ca:Component', {'id':'Definitions_1'})
 infomodel = ET.SubElement(definitions, 'ca:InformationModel', {'id':'infoModel', 'rootDataItemId':'infoModel'})
 infomodelref = ET.SubElement(infomodel, 'ca:DataItem', {'id':"infoModel", 'rootElement':'infoModel', 'schemaUri':'data/infoModel.xsd'})
@@ -101,21 +112,12 @@ procstage = ET.SubElement(gsm, 'ca:Stage', {'id': 'process', 'name': 'Default Pr
 
 for activity in pres:
 
-    #add corresponding events to information model
-    elem = ET.SubElement(infomodelxsd, 'xs:element', {'name':activity+'_s'})
-    ct = ET.SubElement(elem, 'xs:complexType')
-    attr = ET.SubElement(ct, 'xs:attribute', {'name':'timestamp', 'type':'xs:dateTime', 'use':'required'})
-    
-    elem = ET.SubElement(infomodelxsd, 'xs:element', {'name':activity+'_e'})
-    ct = ET.SubElement(elem, 'xs:complexType')
-    attr = ET.SubElement(ct, 'xs:attribute', {'name':'timestamp', 'type':'xs:dateTime', 'use':'required'})
-
     #add corresponding data flow guard to process stage
-    dfg = ET.SubElement(procstage, 'ca:DataFlowGuard', {'eventIds': activity+'_s', 'expression': 'GSM.isEventOccurring('+activity+'_s)', 'id': 'process_'+activity+'_dfg', 'language': 'JEXL', 'name': 'Process '+activity+' data flow guard'})
+    dfg = ET.SubElement(procstage, 'ca:DataFlowGuard', {'eventIds': 'SensorData_e', 'expression': '(' + rules[activity] + ') and GSM.isEventOccurring(SensorData_e)', 'id': 'process_'+activity+'_dfg', 'language': 'JEXL', 'name': 'Process '+activity+' data flow guard'})
 
     #create activity valid substage
     valstage = ET.SubElement(procstage, 'ca:SubStage', {'id': activity, 'name': activity})
-    vdfg = ET.SubElement(valstage, 'ca:DataFlowGuard', {'eventIds': activity+'_s', 'expression': 'GSM.isEventOccurring('+activity+'_s)', 'id': activity+'_dfg', 'language': 'JEXL', 'name': activity+' data flow guard'})
+    vdfg = ET.SubElement(valstage, 'ca:DataFlowGuard', {'eventIds': 'SensorData_e', 'expression': '(' + rules[activity] + ') and GSM.isEventOccurring(SensorData_e)', 'id': activity+'_dfg', 'language': 'JEXL', 'name': activity+' data flow guard'})
     #activity has no successors
     if len(succs[activity]) == 0:
         #add milestone to activity valid stage
@@ -129,6 +131,7 @@ for activity in pres:
         #the only successor is the activity itself
         if len(succs[activity]) == 1 and succs[activity][0] == activity:
             #stage should remain open, since no termination condition exists
+            # TODO:
             vm = ET.SubElement(valstage, 'ca:Milestone', {'eventIds': succ+'_s', 'id': activity+'_m_'+succ, 'name': activity+' milestone'})
             vmc = ET.SubElement(vm, 'ca:Condition', {'expression': 'false', 'id': activity+'_m_c', 'language': 'JEXL', 'name': activity+' milestone condition'})
         #activity has other successors than itself
@@ -173,9 +176,10 @@ for activity in pres:
 
     #create activity running substage
     actstage = ET.SubElement(valstage, 'ca:SubStage', {'id': activity+'_run', 'name': activity+' running'})
-    adfg = ET.SubElement(actstage, 'ca:DataFlowGuard', {'eventIds': activity+'_s', 'expression': 'GSM.isEventOccurring('+activity+'_s)', 'id': activity+'_run_dfg', 'language': 'JEXL', 'name': activity+' running data flow guard'})
-    am = ET.SubElement(actstage, 'ca:Milestone', {'eventIds': activity+'_e', 'id': activity+'_run_m', 'name': activity+' running milestone'})
-    amc = ET.SubElement(am, 'ca:Condition', {'expression': 'GSM.isEventOccurring('+activity+'_e)', 'id': activity+'_run_m_c', 'language': 'JEXL', 'name': activity+' running milestone condition'})
+    # TODO:
+    adfg = ET.SubElement(actstage, 'ca:DataFlowGuard', {'eventIds': 'SensorData_e', 'expression': '(' + rules[activity] + ') and GSM.isEventOccurring(SensorData_e)', 'id': activity+'_run_dfg', 'language': 'JEXL', 'name': activity+' running data flow guard'})
+    am = ET.SubElement(actstage, 'ca:Milestone', {'eventIds': 'SensorData_l', 'id': activity+'_run_m', 'name': activity+' running milestone'})
+    amc = ET.SubElement(am, 'ca:Condition', {'expression': 'not ('+rules[activity]+')' + ' and GSM.isEventOccurring(SensorData_l)', 'id': activity+'_run_m_c', 'language': 'JEXL', 'name': activity+' running milestone condition'})
     
     if not activity in pres[activity]:
         apfg = ET.SubElement(actstage, 'ca:ProcessFlowGuard', {'id': activity+'_run_pfg', 'name': activity+' running process flow guard', 'expression': 'not GSM.isMilestoneAchieved('+activity+'_run_m)'})
