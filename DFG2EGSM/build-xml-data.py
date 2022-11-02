@@ -34,6 +34,7 @@ def create_rules_recursive(clf,features,node,expression,rules):
     # leaf node
     else:
         key = clf.classes_[np.argmax(clf.tree_.value[node])]
+        # if '>' in expression:
         if (key not in rules):
             rules[key] = '(' + expression + ')'
         else:
@@ -176,13 +177,13 @@ for activity in pres:
 
     #create activity running substage
     actstage = ET.SubElement(valstage, 'ca:SubStage', {'id': activity+'_run', 'name': activity+' running'})
-    # TODO:
     adfg = ET.SubElement(actstage, 'ca:DataFlowGuard', {'eventIds': 'SensorData_e', 'expression': '(' + rules[activity] + ') and GSM.isEventOccurring(SensorData_e)', 'id': activity+'_run_dfg', 'language': 'JEXL', 'name': activity+' running data flow guard'})
     am = ET.SubElement(actstage, 'ca:Milestone', {'eventIds': 'SensorData_l', 'id': activity+'_run_m', 'name': activity+' running milestone'})
     amc = ET.SubElement(am, 'ca:Condition', {'expression': 'not ('+rules[activity]+')' + ' and GSM.isEventOccurring(SensorData_l)', 'id': activity+'_run_m_c', 'language': 'JEXL', 'name': activity+' running milestone condition'})
     
-    if not activity in pres[activity]:
-        apfg = ET.SubElement(actstage, 'ca:ProcessFlowGuard', {'id': activity+'_run_pfg', 'name': activity+' running process flow guard', 'expression': 'not GSM.isMilestoneAchieved('+activity+'_run_m)'})
+    # uncomment to consider repetitions as non-conformant
+    # if not activity in pres[activity]:
+    #     apfg = ET.SubElement(actstage, 'ca:ProcessFlowGuard', {'id': activity+'_run_pfg', 'name': activity+' running process flow guard', 'expression': 'not GSM.isMilestoneAchieved('+activity+'_run_m)'})
 
 ET.ElementTree(compositeapp).write("siena.xml", xml_declaration=True, encoding='utf-8')
 ET.ElementTree(infomodelxsd).write("infoModel.xsd", xml_declaration=True, encoding='utf-8')

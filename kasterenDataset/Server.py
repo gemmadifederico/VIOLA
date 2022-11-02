@@ -9,8 +9,9 @@ reset = False
 def startStreaming():
     global reset 
 
-    IoTStream = pd.read_csv("log_labeled_test.csv", header = 0)
-    url = "http://127.0.0.1:8080/api/updateInfoModel"
+    #IoTStream = pd.read_csv("log_labeled_test.csv", header = 0)
+    IoTStream = pd.read_csv("log_labeled.csv", header = 0)
+    url = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
     sensors = {
     1 : 'Microwave'         ,
     5 : 'Hall-Toilet_door'  ,
@@ -58,9 +59,10 @@ def startStreaming():
             reset = False
 
         print(message)
-        requests.post(url, json = json.dumps(message))
+        #requests.post(url, json = json.dumps(message))
+        requests.post(url, json = message)
         print("sent")
-        time.sleep(0.2)
+        time.sleep(1)
 
 def resetCounter():
     global reset
@@ -75,14 +77,14 @@ def index():
     print("Received call post")
     return (request.form)
 
-@app.route('/start', methods=['GET'])
+@app.route('/api/start', methods=['GET'])
 def index1():
     print("STARTING STREAMING")
     t1 = Thread(target= startStreaming())
     t1.start()
     return "DONE"
 
-@app.route('/reset', methods=['GET'])
+@app.route('/api/reset', methods=['GET'])
 def index2():
     print("RESET CALL RECEIVED")
     t2 = Thread(target= resetCounter())
