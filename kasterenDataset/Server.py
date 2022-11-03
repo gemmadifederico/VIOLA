@@ -5,13 +5,19 @@ import time
 from threading import Thread
 NUM_THREADS = 4
 
+caseID = ""
 reset = False
+filterCase = ""
+
 def startStreaming():
     global reset 
+    global caseID
 
     #IoTStream = pd.read_csv("log_labeled_test.csv", header = 0)
     IoTStream = pd.read_csv("log_labeled.csv", header = 0)
-    url = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
+    updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
+    resetGSMurl = "http://127.0.0.1:8083/api/reset"
+    startGSMurl = "http://127.0.0.1:8083/api/start?infoModelPath=data\dfg\infoModel.xsd&processModelPath=data\dfg\siena.xml"
     sensors = {
     1 : 'Microwave'         ,
     5 : 'Hall-Toilet_door'  ,
@@ -47,22 +53,30 @@ def startStreaming():
     }
 
     for index, line in IoTStream.iterrows():
-        if reset == False:
-            sensor_name = sensors[line["Sensor_ID"]]
-            message[sensor_name] += 1
-            message["Activity_Size"] += 1
-        else: 
-            message = {key:0 for key in message}
-            sensor_name = sensors[line["Sensor_ID"]]
-            message[sensor_name] += 1
-            message["Activity_Size"] += 1
-            reset = False
+        if filterCase == "" or filterCase == line["Case_ID"]:
+            if caseID != line["Case_ID"]:
+                print("new case id:" + caseID + "-->" + line["Case_ID"])
+                caseID = line["Case_ID"]
+                reset = True
+                requests.get(resetGSMurl);
+                requests.get(startGSMurl);        
+                time.sleep(3)
+            if reset == False:
+                sensor_name = sensors[line["Sensor_ID"]]
+                message[sensor_name] += 1
+                message["Activity_Size"] += 1
+            else: 
+                message = {key:0 for key in message}
+                sensor_name = sensors[line["Sensor_ID"]]
+                message[sensor_name] += 1
+                message["Activity_Size"] += 1
+                reset = False
 
-        print(message)
-        #requests.post(url, json = json.dumps(message))
-        requests.post(url, json = message)
-        print("sent")
-        time.sleep(1)
+            print(message)
+            #requests.post(url, json = json.dumps(message))
+            requests.post(updateInfoModelurl, json = message)
+            print("sent")
+            time.sleep(1)
 
 def resetCounter():
     global reset
