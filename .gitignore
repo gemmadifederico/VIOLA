@@ -4,3 +4,10 @@
 /myDataset
 /mydecisiontree.png
 /UCI ADL Binary Dataset
+/kasterenDataset/log_labeled_test.csv
+/kasterenDataset/log_labeled_trans.csv
+/kasterenDataset/log_labeled.csv
+/kasterenDataset/log_windowed_labeled.csv
+/kasterenDataset/log_windowed.csv
+/kasterenDataset/test.joblib
+/kasterenDataset/mydecisiontree_classifier_test.png
