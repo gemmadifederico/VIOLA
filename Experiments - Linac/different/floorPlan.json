@@ -1,0 +1,434 @@
+{
+    "tileSideLength": 1,
+    "width": 10,
+    "height": 10,
+    "agents": [
+        {
+            "id": "Agent1",
+            "initialPosition": {
+                "x": 5,
+                "y": 4
+            },
+            "speed": 1
+        }
+    ],
+    "passiveSensors": [
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens1_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 1,
+                    "y": 1
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens2_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 3,
+                    "y": 1
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens3_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 1,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens4_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 3,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens5_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 1,
+                    "y": 5
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens6_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 3,
+                    "y": 5
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens7_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 1,
+                    "y": 7
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens8_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 3,
+                    "y": 7
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens1_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 1
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens2_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 9,
+                    "y": 1
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens3_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens4_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 9,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens5_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 5
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens6_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 9,
+                    "y": 5
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens7_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 7
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "Sens8_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 9,
+                    "y": 7
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.PresenceSensor",
+            "name": "Door_X",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 4,
+                    "y": 4
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.PresenceSensor",
+            "name": "Door_Y",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 6,
+                    "y": 4
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        }
+    ],
+    "activeSensors": [],
+    "walls": [
+        {
+            "x": 5,
+            "y": 0
+        },
+        {
+            "x": 5,
+            "y": 1
+        },
+        {
+            "x": 5,
+            "y": 2
+        },
+        {
+            "x": 5,
+            "y": 3
+        },
+        {
+            "x": 5,
+            "y": 6
+        },
+        {
+            "x": 5,
+            "y": 7
+        },
+        {
+            "x": 5,
+            "y": 8
+        },
+        {
+            "x": 5,
+            "y": 9
+        },
+        {
+            "x": 6,
+            "y": 3
+        },
+        {
+            "x": 4,
+            "y": 3
+        },
+        {
+            "x": 4,
+            "y": 5
+        },
+        {
+            "x": 6,
+            "y": 5
+        },
+        {
+            "x": 5,
+            "y": 5
+        }
+    ],
+    "entities": [
+        {
+            "name": "X1",
+            "interactArea": [             {
+                "x": 0,
+                "y": 8
+            }],
+            "physicalArea": [
+                {
+                    "x": 0,
+                    "y": 8
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "X2",
+            "interactArea": [{
+                "x": 3,
+                "y": 8
+            }],
+            "physicalArea": [
+                {
+                    "x": 3,
+                    "y": 8
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "X3",
+            "interactArea": [{
+                "x": 0,
+                "y": 0
+            }],
+            "physicalArea": [
+                {
+                    "x": 0,
+                    "y": 0
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "X4",
+            "interactArea": [{
+                "x": 3,
+                "y": 0
+            }],
+            "physicalArea": [
+                {
+                    "x": 3,
+                    "y": 0
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "X5",
+            "interactArea": [{
+                "x": 2,
+                "y": 4
+            }],
+            "physicalArea": [
+                {
+                    "x": 2,
+                    "y": 4
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "Y1",
+            "interactArea": [{
+                "x": 7,
+                "y": 0
+            }],
+            "physicalArea": [
+                {
+                    "x": 7,
+                    "y": 0
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "Y2",
+            "interactArea": [{
+                "x": 9,
+                "y": 2
+            }],
+            "physicalArea": [
+                {
+                    "x": 9,
+                    "y": 2
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "Y3",
+            "interactArea": [{
+                "x": 9,
+                "y": 6
+            }],
+            "physicalArea": [
+                {
+                    "x": 9,
+                    "y": 6
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "Y4",
+            "interactArea": [{
+                "x": 8,
+                "y": 8
+            }],
+            "physicalArea": [
+                {
+                    "x": 8,
+                    "y": 8
+                }
+            ],
+            "walkable": true
+        }
+    ]
+}
