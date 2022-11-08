@@ -28,8 +28,8 @@ print(floorplanreq.text)
 
 date = datetime.datetime(2022, 9, 1, 8, 00, 0, 0)
 
-for x in range(10):
-    name = "input_normal_" + str(x) + ".json"
+for x in range(100):
+    name = "input/input_normal_" + str(x) + ".json"
     f = open(name,)
     inputFile = json.load(f)   
     f.close()
