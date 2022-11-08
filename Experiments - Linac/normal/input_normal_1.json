@@ -1,0 +1,1 @@
+{"input": "agent(Agent1){goto(A2);wait(159);goto(A3);wait(103);goto(R1);wait(141);goto(A1);wait(116);goto(B2);wait(159);goto(R2);wait(99);goto(B1);wait(95);goto(B3);wait(78);goto(C4);wait(83);goto(C1);wait(107);goto(R3);wait(119);goto(C2);wait(176);goto(C3);wait(73);goto(D3);wait(150);goto(D1);wait(68);goto(D2);wait(140);}"}

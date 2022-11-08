@@ -1,0 +1,1170 @@
+{
+    "tileSideLength": 1,
+    "width": 20,
+    "height": 20,
+    "agents": [
+        {
+            "id": "Agent1",
+            "initialPosition": {
+                "x": 9,
+                "y": 9
+            },
+            "speed": 1
+        }
+    ],
+    "passiveSensors": [
+        {
+            "type": "entities.library.PresenceSensor",
+            "name": "door_B",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 8
+                },
+                {
+                    "x": 7,
+                    "y": 7
+                },
+                {
+                    "x": 8,
+                    "y": 7
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.PresenceSensor",
+            "name": "door_A",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 10,
+                    "y": 7
+                },
+                {
+                    "x": 11,
+                    "y": 7
+                },
+                {
+                    "x": 11,
+                    "y": 8
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.PresenceSensor",
+            "name": "door_D",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 11,
+                    "y": 10
+                },
+                {
+                    "x": 11,
+                    "y": 11
+                },
+                {
+                    "x": 10,
+                    "y": 11
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.PresenceSensor",
+            "name": "door_C",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 10
+                },
+                {
+                    "x": 7,
+                    "y": 11
+                },
+                {
+                    "x": 8,
+                    "y": 11
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens1_B",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 6,
+                    "y": 2
+                },
+                {
+                    "x": 7,
+                    "y": 2
+                },
+                {
+                    "x": 6,
+                    "y": 3
+                },
+                {
+                    "x": 7,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens2_B",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 2
+                },
+                {
+                    "x": 3,
+                    "y": 2
+                },
+                {
+                    "x": 3,
+                    "y": 3
+                },
+                {
+                    "x": 2,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens3_B",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 6
+                },
+                {
+                    "x": 3,
+                    "y": 6
+                },
+                {
+                    "x": 2,
+                    "y": 7
+                },
+                {
+                    "x": 3,
+                    "y": 7
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens1_A",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 17,
+                    "y": 2
+                },
+                {
+                    "x": 16,
+                    "y": 2
+                },
+                {
+                    "x": 17,
+                    "y": 3
+                },
+                {
+                    "x": 16,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens2_A",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 12,
+                    "y": 2
+                },
+                {
+                    "x": 13,
+                    "y": 2
+                },
+                {
+                    "x": 13,
+                    "y": 3
+                },
+                {
+                    "x": 12,
+                    "y": 3
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens3_A",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 16,
+                    "y": 6
+                },
+                {
+                    "x": 15,
+                    "y": 6
+                },
+                {
+                    "x": 16,
+                    "y": 7
+                },
+                {
+                    "x": 15,
+                    "y": 7
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens3_C",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 6,
+                    "y": 16
+                },
+                {
+                    "x": 7,
+                    "y": 16
+                },
+                {
+                    "x": 6,
+                    "y": 17
+                },
+                {
+                    "x": 7,
+                    "y": 17
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens2_C",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 16
+                },
+                {
+                    "x": 3,
+                    "y": 16
+                },
+                {
+                    "x": 2,
+                    "y": 17
+                },
+                {
+                    "x": 3,
+                    "y": 17
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sense1_C",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 11
+                },
+                {
+                    "x": 3,
+                    "y": 11
+                },
+                {
+                    "x": 2,
+                    "y": 12
+                },
+                {
+                    "x": 3,
+                    "y": 12
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens1_D",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 16,
+                    "y": 11
+                },
+                {
+                    "x": 17,
+                    "y": 12
+                },
+                {
+                    "x": 16,
+                    "y": 12
+                },
+                {
+                    "x": 17,
+                    "y": 11
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens2_D",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 11,
+                    "y": 16
+                },
+                {
+                    "x": 12,
+                    "y": 16
+                },
+                {
+                    "x": 11,
+                    "y": 17
+                },
+                {
+                    "x": 12,
+                    "y": 17
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens3_D",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 15,
+                    "y": 16
+                },
+                {
+                    "x": 16,
+                    "y": 16
+                },
+                {
+                    "x": 15,
+                    "y": 17
+                },
+                {
+                    "x": 16,
+                    "y": 17
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens4_B",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 4,
+                    "y": 4
+                },
+                {
+                    "x": 5,
+                    "y": 4
+                },
+                {
+                    "x": 5,
+                    "y": 5
+                },
+                {
+                    "x": 4,
+                    "y": 5
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens4_A",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 14,
+                    "y": 4
+                },
+                {
+                    "x": 15,
+                    "y": 4
+                },
+                {
+                    "x": 15,
+                    "y": 5
+                },
+                {
+                    "x": 14,
+                    "y": 5
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens4_D",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 13,
+                    "y": 13
+                },
+                {
+                    "x": 14,
+                    "y": 13
+                },
+                {
+                    "x": 13,
+                    "y": 14
+                },
+                {
+                    "x": 14,
+                    "y": 14
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        },
+        {
+            "type": "entities.library.FloorSensor",
+            "name": "sens4_C",
+            "physicalArea": [],
+            "interactArea": [
+                {
+                    "x": 4,
+                    "y": 13
+                },
+                {
+                    "x": 4,
+                    "y": 14
+                },
+                {
+                    "x": 5,
+                    "y": 13
+                },
+                {
+                    "x": 5,
+                    "y": 14
+                }
+            ],
+            "walkable": true,
+            "triggerFrequency": 30000000000
+        }
+    ],
+    "activeSensors": [],
+    "walls": [
+        {
+            "x": 0,
+            "y": 0
+        },
+        {
+            "x": 1,
+            "y": 0
+        },
+        {
+            "x": 2,
+            "y": 0
+        },
+        {
+            "x": 3,
+            "y": 0
+        },
+        {
+            "x": 4,
+            "y": 0
+        },
+        {
+            "x": 5,
+            "y": 0
+        },
+        {
+            "x": 6,
+            "y": 0
+        },
+        {
+            "x": 7,
+            "y": 0
+        },
+        {
+            "x": 8,
+            "y": 0
+        },
+        {
+            "x": 9,
+            "y": 0
+        },
+        {
+            "x": 10,
+            "y": 0
+        },
+        {
+            "x": 11,
+            "y": 0
+        },
+        {
+            "x": 12,
+            "y": 0
+        },
+        {
+            "x": 13,
+            "y": 0
+        },
+        {
+            "x": 14,
+            "y": 0
+        },
+        {
+            "x": 15,
+            "y": 0
+        },
+        {
+            "x": 16,
+            "y": 0
+        },
+        {
+            "x": 17,
+            "y": 0
+        },
+        {
+            "x": 18,
+            "y": 0
+        },
+        {
+            "x": 19,
+            "y": 0
+        },
+        {
+            "x": 19,
+            "y": 1
+        },
+        {
+            "x": 19,
+            "y": 2
+        },
+        {
+            "x": 19,
+            "y": 3
+        },
+        {
+            "x": 19,
+            "y": 4
+        },
+        {
+            "x": 19,
+            "y": 5
+        },
+        {
+            "x": 19,
+            "y": 6
+        },
+        {
+            "x": 19,
+            "y": 7
+        },
+        {
+            "x": 19,
+            "y": 8
+        },
+        {
+            "x": 19,
+            "y": 9
+        },
+        {
+            "x": 19,
+            "y": 10
+        },
+        {
+            "x": 19,
+            "y": 11
+        },
+        {
+            "x": 19,
+            "y": 12
+        },
+        {
+            "x": 19,
+            "y": 13
+        },
+        {
+            "x": 19,
+            "y": 14
+        },
+        {
+            "x": 19,
+            "y": 15
+        },
+        {
+            "x": 19,
+            "y": 16
+        },
+        {
+            "x": 19,
+            "y": 17
+        },
+        {
+            "x": 19,
+            "y": 18
+        },
+        {
+            "x": 19,
+            "y": 19
+        },
+        {
+            "x": 18,
+            "y": 19
+        },
+        {
+            "x": 17,
+            "y": 19
+        },
+        {
+            "x": 16,
+            "y": 19
+        },
+        {
+            "x": 15,
+            "y": 19
+        },
+        {
+            "x": 14,
+            "y": 19
+        },
+        {
+            "x": 13,
+            "y": 19
+        },
+        {
+            "x": 12,
+            "y": 19
+        },
+        {
+            "x": 11,
+            "y": 19
+        },
+        {
+            "x": 10,
+            "y": 19
+        },
+        {
+            "x": 9,
+            "y": 19
+        },
+        {
+            "x": 8,
+            "y": 19
+        },
+        {
+            "x": 7,
+            "y": 19
+        },
+        {
+            "x": 6,
+            "y": 19
+        },
+        {
+            "x": 5,
+            "y": 19
+        },
+        {
+            "x": 4,
+            "y": 19
+        },
+        {
+            "x": 3,
+            "y": 19
+        },
+        {
+            "x": 2,
+            "y": 19
+        },
+        {
+            "x": 1,
+            "y": 19
+        },
+        {
+            "x": 0,
+            "y": 19
+        },
+        {
+            "x": 0,
+            "y": 18
+        },
+        {
+            "x": 0,
+            "y": 17
+        },
+        {
+            "x": 0,
+            "y": 16
+        },
+        {
+            "x": 0,
+            "y": 15
+        },
+        {
+            "x": 0,
+            "y": 14
+        },
+        {
+            "x": 0,
+            "y": 13
+        },
+        {
+            "x": 0,
+            "y": 12
+        },
+        {
+            "x": 0,
+            "y": 11
+        },
+        {
+            "x": 0,
+            "y": 10
+        },
+        {
+            "x": 0,
+            "y": 9
+        },
+        {
+            "x": 0,
+            "y": 8
+        },
+        {
+            "x": 0,
+            "y": 7
+        },
+        {
+            "x": 0,
+            "y": 6
+        },
+        {
+            "x": 0,
+            "y": 5
+        },
+        {
+            "x": 0,
+            "y": 1
+        },
+        {
+            "x": 0,
+            "y": 2
+        },
+        {
+            "x": 0,
+            "y": 3
+        },
+        {
+            "x": 0,
+            "y": 4
+        },
+        {
+            "x": 9,
+            "y": 1
+        },
+        {
+            "x": 9,
+            "y": 5
+        },
+        {
+            "x": 9,
+            "y": 4
+        },
+        {
+            "x": 9,
+            "y": 3
+        },
+        {
+            "x": 9,
+            "y": 2
+        },
+        {
+            "x": 9,
+            "y": 6
+        },
+        {
+            "x": 9,
+            "y": 12
+        },
+        {
+            "x": 9,
+            "y": 13
+        },
+        {
+            "x": 9,
+            "y": 14
+        },
+        {
+            "x": 9,
+            "y": 15
+        },
+        {
+            "x": 9,
+            "y": 16
+        },
+        {
+            "x": 9,
+            "y": 17
+        },
+        {
+            "x": 9,
+            "y": 18
+        },
+        {
+            "x": 1,
+            "y": 9
+        },
+        {
+            "x": 2,
+            "y": 9
+        },
+        {
+            "x": 3,
+            "y": 9
+        },
+        {
+            "x": 4,
+            "y": 9
+        },
+        {
+            "x": 5,
+            "y": 9
+        },
+        {
+            "x": 6,
+            "y": 9
+        },
+        {
+            "x": 12,
+            "y": 9
+        },
+        {
+            "x": 13,
+            "y": 9
+        },
+        {
+            "x": 14,
+            "y": 9
+        },
+        {
+            "x": 15,
+            "y": 9
+        },
+        {
+            "x": 16,
+            "y": 9
+        },
+        {
+            "x": 17,
+            "y": 9
+        },
+        {
+            "x": 18,
+            "y": 9
+        }
+    ],
+    "entities": [
+        {
+            "name": "B2",
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 2
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 2,
+                    "y": 2
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "B1",
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 2
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 7,
+                    "y": 2
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "B3",
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 7
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 2,
+                    "y": 7
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "A2",
+            "interactArea": [
+                {
+                    "x": 11,
+                    "y": 2
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 11,
+                    "y": 2
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "A3",
+            "interactArea": [
+                {
+                    "x": 16,
+                    "y": 7
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 16,
+                    "y": 7
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "D1",
+            "interactArea": [
+                {
+                    "x": 16,
+                    "y": 11
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 16,
+                    "y": 11
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "D2",
+            "interactArea": [
+                {
+                    "x": 11,
+                    "y": 17
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 11,
+                    "y": 17
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "D3",
+            "interactArea": [
+                {
+                    "x": 17,
+                    "y": 17
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 17,
+                    "y": 17
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "C1",
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 13
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 7,
+                    "y": 13
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "C2",
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 11
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 2,
+                    "y": 11
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "C3",
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 17
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 2,
+                    "y": 17
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "C4",
+            "interactArea": [
+                {
+                    "x": 7,
+                    "y": 17
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 7,
+                    "y": 17
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "R1",
+            "interactArea": [
+                {
+                    "x": 15,
+                    "y": 4
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 15,
+                    "y": 4
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "R2",
+            "interactArea": [
+                {
+                    "x": 6,
+                    "y": 5
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 6,
+                    "y": 5
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "R3",
+            "interactArea": [
+                {
+                    "x": 2,
+                    "y": 14
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 2,
+                    "y": 14
+                }
+            ],
+            "walkable": true
+        },
+        {
+            "name": "A1",
+            "interactArea": [
+                {
+                    "x": 18,
+                    "y": 2
+                }
+            ],
+            "physicalArea": [
+                {
+                    "x": 18,
+                    "y": 2
+                }
+            ],
+            "walkable": true
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "clock": "2023-01-01T08:00:00.000000000",
+    "instantSimulation": true,
+    "relativeTime": 0.1,
+    "mqttOutput": false,
+    "qualityOfService": 2,
+    "mqttHost": "broker.hivemq.com",
+    "mqttPort": "1883",
+    "rootTopic": "gdff",
+    "csvOutput": true,
+    "csvFileName": "C:/Users/gdfe/OneDrive - Danmarks Tekniske Universitet/Dokumenter/egsm/Experiments - Linac/shuffle/Lerror1",
+    "seed": 3
+}
