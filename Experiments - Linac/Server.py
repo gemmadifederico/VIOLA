@@ -8,6 +8,8 @@ NUM_THREADS = 4
 caseID = ""
 reset = False
 filterCase = ""
+output = pd.DataFrame(columns=["Case_ID","Timestamp","Type","Sensor","Label","Label_ID","Activity_ID","Recognized"])
+
 
 def startStreaming():
     global reset 
@@ -41,6 +43,7 @@ def startStreaming():
     }
 
     for index, line in IoTStream.iterrows():
+        output = output.append(line)
         if filterCase == "" or filterCase == line["Case_ID"]:
             if caseID != line["Case_ID"]:
                 print("new case id:" + caseID + "-->" + line["Case_ID"])
@@ -51,18 +54,19 @@ def startStreaming():
                 time.sleep(3)
             if reset == False:
                 sensor_name = line["Sensor"]
-                message[sensor_name] += 1
+                if sensor_name not in message: pass
+                else: message[sensor_name] += 1
             else: 
                 message = {key:0 for key in message}
                 sensor_name = line["Sensor"]
-                message[sensor_name] += 1
+                if sensor_name not in message: pass
+                else: message[sensor_name] += 1
                 reset = False
-
             print(message)
-            #requests.post(url, json = json.dumps(message))
             requests.post(updateInfoModelurl, json = message)
             print("sent")
             time.sleep(1)
+    output.to_csv("output.csv", index=False)
 
 def resetCounter():
     global reset
@@ -77,19 +81,23 @@ def index():
     print("Received call post")
     return (request.form)
 
-@app.route('/api/start', methods=['GET'])
-def index1():
-    print("STARTING STREAMING")
-    t1 = Thread(target= startStreaming())
-    t1.start()
-    return "DONE"
-
 @app.route('/api/reset', methods=['GET'])
 def index2():
     print("RESET CALL RECEIVED")
     t2 = Thread(target= resetCounter())
     t2.start()    
-    return "RESET DONE"
+    req = request.args.get("stageName")
+    if(req[-3:] == "run"):
+        t3 = Thread(target=printRow(req))
+        t3.start()
+    return "DONE"
+
+def printRow(req):
+    global output
+    dict = {"Case_ID": caseID, "Recognized": req[:-4]}
+    output = output.append(dict, ignore_index=True)
+    return
+
 
 app.run(port=8080)
 
