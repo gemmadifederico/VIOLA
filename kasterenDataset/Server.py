@@ -10,7 +10,7 @@ NUM_THREADS = 4
 caseID = ""
 reset = False
 filterCase = ""
-output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor_ID","Label","Label_ID","Activity_ID","Val","Recognized"])
+output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor_ID","Label","Label_ID","Activity_ID","Val","Recognized","Conformance"])
 
 def startStreaming():
     global reset 
@@ -49,7 +49,7 @@ def startStreaming():
                 resetCounter()
                 requests.get(resetGSMurl);
                 requests.get(startGSMurl);        
-                time.sleep(3)
+                time.sleep(1)
             if reset == False:
                 sensor_name = line["Sensor_ID"]
                 message[sensor_name] += 1
@@ -94,14 +94,15 @@ def index2():
     t2 = Thread(target= resetCounter())
     t2.start()    
     req = request.args.get("stageName")
+    cf = request.args.get("compliance")
     if(req[-3:] == "run"):
-        t3 = Thread(target=printRow(req))
+        t3 = Thread(target=printRow(req,cf))
         t3.start()
     return "DONE"
 
-def printRow(req):
+def printRow(req,cf):
     global output
-    dict = {"Case_ID": caseID, "Recognized": req[:-4]}
+    dict = {"Case_ID": caseID, "Recognized": req[:-4], "Conformance":cf}
     output = output.append(dict, ignore_index=True)
     return
 

@@ -185,8 +185,8 @@ for activity in pres:
     # if not activity in pres[activity]:
     #     apfg = ET.SubElement(actstage, 'ca:ProcessFlowGuard', {'id': activity+'_run_pfg', 'name': activity+' running process flow guard', 'expression': 'not GSM.isMilestoneAchieved('+activity+'_run_m)'})
 
-ET.ElementTree(compositeapp).write("siena.xml", xml_declaration=True, encoding='utf-8')
-ET.ElementTree(infomodelxsd).write("infoModel.xsd", xml_declaration=True, encoding='utf-8')
+ET.ElementTree(compositeapp).write("../../SMARTifact/paso/data/dfg/siena.xml", xml_declaration=True, encoding='utf-8')
+ET.ElementTree(infomodelxsd).write("../../SMARTifact/paso/data/dfg/infoModel.xsd", xml_declaration=True, encoding='utf-8')
 
 # split activity A in A_start and A_end: -> can detect any control flow issue (similar to guarded PN):
 #   we can also model parallel activities

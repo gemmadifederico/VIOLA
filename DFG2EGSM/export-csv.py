@@ -26,7 +26,7 @@ for v in variants:
 # filtering top k variants
 # log = pm4py.filter_variants_top_k(log, 2)
 # filtering variants with at least x% coverage
-log = pm4py.filter_variants_by_coverage_percentage(log, 0.05)
+# log = pm4py.filter_variants_by_coverage_percentage(log, 0.05)
 
 dfg, start_activities, end_activities = pm4py.discover_dfg(log)
 print(dfg)
