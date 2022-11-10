@@ -45,6 +45,8 @@ def startStreaming():
     }
 
     for idc, case in IoTStream.groupby("Case_ID"):
+        requests.get(resetGSMurl);
+        requests.get(startGSMurl);
         for id, window in case.groupby(pd.Grouper(freq="30s", key = "Timestamp")):
             if(window.empty):
                 pass
@@ -56,7 +58,7 @@ def startStreaming():
                     # Set the sensor identifier as 1 in the given window
                     message[sensor_name] = 1
                 # Send the message
-                # requests.post(updateInfoModelurl, json = message)
+                requests.post(updateInfoModelurl, json = message)
                 print(message)
                 # Reset the message
                 message = {key:0 for key in message}
@@ -90,17 +92,17 @@ def index2():
     t2 = Thread(target= resetCounter())
     t2.start()    
     req = request.args.get("stageName")
-    if(req[-3:] == "run"):
+    if(req != "process" and req[-3:] != "run"):
         t3 = Thread(target=printRow(req))
         t3.start()
     return "DONE"
 
 def printRow(req):
     global output
-    dict = {"Case_ID": caseID, "Recognized": req[:-4]}
+    dict = {"Case_ID": caseID, "Recognized": req}
     output = output.append(dict, ignore_index=True)
     return
 
 
-app.run(port=8081)
+app.run(port=8080)
 
