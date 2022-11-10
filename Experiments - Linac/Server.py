@@ -42,30 +42,22 @@ def startStreaming():
         'door_D' : 0,
     }
 
-    for index, line in IoTStream.iterrows():
-        output = output.append(line)
-        if filterCase == "" or filterCase == line["Case_ID"]:
-            if caseID != line["Case_ID"]:
-                print("new case id:" + caseID + "-->" + line["Case_ID"])
-                caseID = line["Case_ID"]
-                reset = True
-                requests.get(resetGSMurl);
-                requests.get(startGSMurl);        
-                time.sleep(3)
-            if reset == False:
-                sensor_name = line["Sensor"]
-                if sensor_name not in message: pass
-                else: message[sensor_name] += 1
-            else: 
+    for idc, case in IoTStream.groupby("Case_ID"):
+        for id, window in case.groupby(pd.Grouper(freq="30s", key = "Timestamp")):
+            if(window.empty):
+                pass
+            else:
+                for ix, el in window.iterrows():
+                    pd.concat(output, el, ignore_index=True)
+                    sensor_name = el["Sensor"]
+                    # Set the sensor identifier as 1 in the given window
+                    message[sensor_name] = 1
+                # Send the message
+                requests.post(updateInfoModelurl, json = message)
+                # Reset the message
                 message = {key:0 for key in message}
-                sensor_name = line["Sensor"]
-                if sensor_name not in message: pass
-                else: message[sensor_name] += 1
-                reset = False
-            print(message)
-            requests.post(updateInfoModelurl, json = message)
-            print("sent")
-            time.sleep(1)
+                # Wait few seconds befor passing to the next window
+                time.sleep(1)
     output.to_csv("output.csv", index=False)
 
 def resetCounter():
