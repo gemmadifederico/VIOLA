@@ -14,8 +14,10 @@ output = pd.DataFrame(columns=["Case_ID","Timestamp","Type","Sensor","Label","La
 def startStreaming():
     global reset 
     global caseID
+    global output
 
-    IoTStream = pd.read_csv("normal/Ltrain_labeled.csv", header = 0)
+    IoTStream = pd.read_csv("normal/Ltrain_windowed_labeled.csv", header = 0)
+    IoTStream['Timestamp'] = pd.to_datetime(IoTStream['Timestamp'], format="%Y-%m-%d %H:%M:%S.%f")
     updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
     resetGSMurl = "http://127.0.0.1:8083/api/reset"
     startGSMurl = "http://127.0.0.1:8083/api/start?infoModelPath=data\dfg\infoModel.xsd&processModelPath=data\dfg\siena.xml"
@@ -47,13 +49,15 @@ def startStreaming():
             if(window.empty):
                 pass
             else:
+                caseID = window.iloc[0]["Case_ID"]
                 for ix, el in window.iterrows():
-                    pd.concat(output, el, ignore_index=True)
+                    output = output.append(el)
                     sensor_name = el["Sensor"]
                     # Set the sensor identifier as 1 in the given window
                     message[sensor_name] = 1
                 # Send the message
-                requests.post(updateInfoModelurl, json = message)
+                # requests.post(updateInfoModelurl, json = message)
+                print(message)
                 # Reset the message
                 message = {key:0 for key in message}
                 # Wait few seconds befor passing to the next window
@@ -73,6 +77,13 @@ def index():
     print("Received call post")
     return (request.form)
 
+@app.route('/api/start', methods=['GET'])
+def index1():
+    print("STARTING STREAMING")
+    t1 = Thread(target= startStreaming())
+    t1.start()
+    return "DONE"
+
 @app.route('/api/reset', methods=['GET'])
 def index2():
     print("RESET CALL RECEIVED")
@@ -91,5 +102,5 @@ def printRow(req):
     return
 
 
-app.run(port=8080)
+app.run(port=8081)
 
