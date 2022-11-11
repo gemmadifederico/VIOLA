@@ -2,22 +2,24 @@ import pandas as pd
 import requests
 import json
 import time
-from threading import Thread
+from threading import Thread, Lock
 NUM_THREADS = 4
 
 caseID = ""
 reset = False
 filterCase = ""
 output = pd.DataFrame(columns=["Case_ID","Timestamp","Type","Sensor","Label","Label_ID","Activity_ID","Recognized"])
-
+lockPrint = Lock()
+lockReset = Lock()    
 
 def startStreaming():
     global reset 
     global caseID
     global output
 
-    IoTStream = pd.read_csv("normal/Ltrain_labeled.csv", header = 0)
-    # IoTStream = pd.read_csv("shuffle/Lerror1_labeled.csv", header = 0)
+    # IoTStream = pd.read_csv("normal/Ltrain_labeled_short.csv", header = 0)
+    # IoTStream = pd.read_csv("normal/Ltrain_labeled.csv", header = 0)
+    IoTStream = pd.read_csv("shuffle/Lerror1_labeled.csv", header = 0)
     # IoTStream = pd.read_csv("different/Lerror2_labeled.csv", header = 0)
     IoTStream['Timestamp'] = pd.to_datetime(IoTStream['Timestamp'], format="%Y-%m-%d %H:%M:%S.%f")
     updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
@@ -55,7 +57,7 @@ def startStreaming():
             else:
                 caseID = window.iloc[0]["Case_ID"]
                 for ix, el in window.iterrows():
-                    output = output.append(el)
+                    printRow(el)
                     sensor_name = el["Sensor"]
                     # Set the sensor identifier as 1 in the given window
                     message[sensor_name] = 1
@@ -65,13 +67,13 @@ def startStreaming():
                 # Reset the message
                 message = {key:0 for key in message}
                 # Wait few seconds befor passing to the next window
-                time.sleep(0.01)
+                # time.sleep(0.01)
     output.to_csv("output.csv", index=False)
 
-def resetCounter():
-    global reset
-    reset = True
-    return
+# def resetCounter():
+#     global reset
+#     reset = True
+#     return
 
 from flask import Flask, request
 app = Flask(__name__)
@@ -90,21 +92,26 @@ def index1():
 
 @app.route('/api/reset', methods=['GET'])
 def index2():
+    lockReset.acquire()
     print("RESET CALL RECEIVED")
-    t2 = Thread(target= resetCounter())
-    t2.start()    
+    # t2 = Thread(target= resetCounter())
+    # t2.start()    
     req = request.args.get("stageName")
     cf = request.args.get("compliance")
     # if(req != "process" and req[-3:] != "run"):
     if(req != "process"):
-        t3 = Thread(target=printRow(req,cf))
-        t3.start()
+        dict = {"Case_ID": caseID, "Recognized": req, "Conformance":cf}
+        printRow(dict)
+        # t3 = Thread(target=printRow(req,cf))
+        # t3.start()
+    lockReset.release()
     return "DONE"
 
-def printRow(req,cf):
+def printRow(row):
+    lockPrint.acquire()
     global output
-    dict = {"Case_ID": caseID, "Recognized": req, "Conformance":cf}
-    output = output.append(dict, ignore_index=True)
+    output = output.append(row, ignore_index=True)
+    lockPrint.release()
     return
 
 
