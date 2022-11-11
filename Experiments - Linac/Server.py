@@ -17,6 +17,8 @@ def startStreaming():
     global output
 
     IoTStream = pd.read_csv("normal/Ltrain_labeled.csv", header = 0)
+    # IoTStream = pd.read_csv("shuffle/Lerror1_labeled.csv", header = 0)
+    # IoTStream = pd.read_csv("different/Lerror2_labeled.csv", header = 0)
     IoTStream['Timestamp'] = pd.to_datetime(IoTStream['Timestamp'], format="%Y-%m-%d %H:%M:%S.%f")
     updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
     resetGSMurl = "http://127.0.0.1:8083/api/reset"
@@ -63,7 +65,7 @@ def startStreaming():
                 # Reset the message
                 message = {key:0 for key in message}
                 # Wait few seconds befor passing to the next window
-                time.sleep(1)
+                time.sleep(0.01)
     output.to_csv("output.csv", index=False)
 
 def resetCounter():
@@ -92,14 +94,16 @@ def index2():
     t2 = Thread(target= resetCounter())
     t2.start()    
     req = request.args.get("stageName")
-    if(req != "process" and req[-3:] != "run"):
-        t3 = Thread(target=printRow(req))
+    cf = request.args.get("compliance")
+    # if(req != "process" and req[-3:] != "run"):
+    if(req != "process"):
+        t3 = Thread(target=printRow(req,cf))
         t3.start()
     return "DONE"
 
-def printRow(req):
+def printRow(req,cf):
     global output
-    dict = {"Case_ID": caseID, "Recognized": req}
+    dict = {"Case_ID": caseID, "Recognized": req, "Conformance":cf}
     output = output.append(dict, ignore_index=True)
     return
 

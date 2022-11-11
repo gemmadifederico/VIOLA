@@ -1,13 +1,19 @@
 import pm4py
 import pandas as pd
 
-dateCols = ['Start time','End time']
-dataframe = pd.read_csv('../kasterenDataset/log_labeled.csv', sep=',', parse_dates=dateCols)
+# kasteren
+# dateCols = ['Start time','End time']
+# dataframe = pd.read_csv('../kasterenDataset/log_labeled.csv', sep=',', parse_dates=dateCols)
+
+# linac
+dateCols = ['Timestamp']
+dataframe = pd.read_csv('../Experiments - Linac/normal/Ltrain_labeled.csv', sep=',', parse_dates=dateCols)
+
 #dataframe = pd.read_csv('./test2.csv', sep=';', parse_dates=dateCols)
 dataframe = dataframe.drop_duplicates(subset=['Case_ID', 'Label'], keep='first')
 dataframe = dataframe.rename(columns={'Case_ID': 'case:concept:name', 'Label':'concept:name'})
 
-dataframe = dataframe.set_index(['Start time'])
+# dataframe = dataframe.set_index(['Start time'])
 # morning routines
 # dataframe = dataframe.between_time('09:00', '13:00')
 # evening
