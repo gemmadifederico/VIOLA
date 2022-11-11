@@ -42,7 +42,7 @@ for index, line in log.iterrows():
             fnCase += 1
             
         if caseID != "":
-            print("False positives :" + str(fpCase))
+            print("False positives: " + str(fpCase))
             print("False negatives: " + str(fnCase))
             print("True positives: " + str(tpCase))
             print("Total activities per case: " + str(actCase))
@@ -103,7 +103,7 @@ for index, line in log.iterrows():
 if label != activity:
     fnCase += 1    
 
-print("False positives :" + str(fpCase))
+print("False positives: " + str(fpCase))
 print("False negatives: " + str(fnCase))
 print("True positives: " + str(tpCase))
 print("Total activities per case: " + str(actCase))
@@ -119,7 +119,7 @@ actTotal = actTotal + actCase
 otTotal = otTotal + otCase
 ooTotal = ooTotal + ooCase
 
-print("Total false positives :" + str(fpTotal))
+print("Total false positives: " + str(fpTotal))
 print("Total false negatives: " + str(fnTotal))
 print("Total true positives: " + str(tpTotal))
 print("Total activities for all cases: " + str(actTotal))

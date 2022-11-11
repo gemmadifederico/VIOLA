@@ -99,7 +99,7 @@ infomodelxsd = ET.Element('xs:schema', {'xmlns:xs':'http://www.w3.org/2001/XMLSc
 #add corresponding events to information model
 elem = ET.SubElement(infomodelxsd, 'xs:element', {'name':'SensorData'})
 ct = ET.SubElement(elem, 'xs:complexType')
-ET.SubElement(ct, 'xs:attribute', {'name':'timestamp', 'type':'xs:dateTime', 'use':'required'})
+# ET.SubElement(ct, 'xs:attribute', {'name':'timestamp', 'type':'xs:dateTime', 'use':'required'})
 ET.SubElement(ct, 'xs:attribute', {'name':'status', 'type':'xs:string', 'use':'required'})
 for feature in features:
     ET.SubElement(ct, 'xs:attribute', {'name': feature, 'type':'xs:integer', 'use':'required'})
