@@ -20,7 +20,7 @@ actTotal = 0
 otTotal = 0
 ooTotal = 0
 
-output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor_ID","Label","Label_ID","Activity_ID","Val","Recognized","Conformance"])
+output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor","Label","Activity_ID","Val","Recognized","Conformance"])
 
 
 # log = pd.read_csv("output_test.csv", header = 0)
