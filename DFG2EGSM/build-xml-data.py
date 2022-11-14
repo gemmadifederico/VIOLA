@@ -9,10 +9,10 @@ import numpy as np
 dfg, start_activities, end_activities = pm4py.objects.dfg.importer.importer.apply('./test-csv.dfg')
 
 # kasteren
-# df = pd.read_csv("../kasterenDataset/log_labeled_trans.csv", header = 0).fillna(0)
+df = pd.read_csv("../kasterenDataset/log_labeled_trans.csv", header = 0).fillna(0)
 
 # linac ltrain
-df = pd.read_csv("../Experiments - Linac/normal/Ltrain_labeled_trans.csv", header = 0).fillna(0)
+# df = pd.read_csv("../Experiments - Linac/normal/Ltrain_labeled_trans.csv", header = 0).fillna(0)
 
 df.columns = df.columns.str.replace(' ', '_')
 df['Label']=df['Label'].str.replace(' ', '_')
@@ -21,15 +21,14 @@ columns = list(data_top)
 features = columns
 features.remove("Label")
 # kasteren
-# features.remove("Label_ID")
-# features.remove("Start_time")
-# features.remove("End_time")
-# clf = load('../kasterenDataset/test.joblib') 
+features.remove("Start_time")
+features.remove("End_time")
+clf = load('../kasterenDataset/test.joblib') 
 
 # linac 
-features.remove("Start_Time")
-features.remove("End_Time")
-clf = load('../Experiments - Linac/normal/test.joblib') 
+# features.remove("Start_Time")
+# features.remove("End_Time")
+# clf = load('../Experiments - Linac/normal/test.joblib') 
 
 
 def create_rules_recursive(clf,features,node,expression,rules):

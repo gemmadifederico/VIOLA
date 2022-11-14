@@ -53,13 +53,14 @@ def startStreaming():
                     sensor_name = el["Sensor"]
                     # Set the sensor identifier as 1 in the given window
                     message[sensor_name] = 1
-                # Send the message
-                requests.post(updateInfoModelurl, json = message)
-                print(message)
-                # Reset the message
-                message = {key:0 for key in message}
-                # Wait few seconds befor passing to the next window
-                # time.sleep(0.01)
+                if caseID == filterCase or filterCase == "":
+                    # Send the message
+                    requests.post(updateInfoModelurl, json = message)
+                    print(message)
+                    # Reset the message
+                    message = {key:0 for key in message}
+                    # Wait few seconds befor passing to the next window
+                    time.sleep(1)
     output.to_csv("output.csv", index=False)
 
 
