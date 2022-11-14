@@ -19,6 +19,7 @@ def startStreaming():
     global output
 
     IoTStream = pd.read_csv("log_labeled.csv", header = 0)
+    IoTStream['Start time'] = pd.to_datetime(IoTStream['Start time'], format='%d/%m/%Y %H:%M')
     updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
     resetGSMurl = "http://127.0.0.1:8083/api/reset"
     startGSMurl = "http://127.0.0.1:8083/api/start?infoModelPath=data\dfg\infoModel.xsd&processModelPath=data\dfg\siena.xml"
