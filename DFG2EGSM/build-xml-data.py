@@ -20,6 +20,7 @@ data_top = df.columns
 columns = list(data_top)
 features = columns
 features.remove("Label")
+
 # kasteren
 features.remove("Start_time")
 features.remove("End_time")
@@ -138,10 +139,9 @@ for activity in pres:
         m = ET.SubElement(procstage, 'ca:Milestone', {'eventIds': '', 'id': 'process_'+activity+'_m', 'name': 'process '+activity+' milestone'})
         mc = ET.SubElement(m, 'ca:Condition', {'expression': 'GSM.isMilestoneAchieved('+activity+'_m)', 'id': 'process_'+activity+'_m_c', 'language': 'JEXL', 'name': 'Process '+activity+' milestone condition'})
     else: 
-        #the only successor is the activity itself
+        #the only successor is the activity itself (it should never happen since the log does not distinguish between repeated executions of the same activity)
         if len(succs[activity]) == 1 and succs[activity][0] == activity:
             #stage should remain open, since no termination condition exists
-            # TODO:
             vm = ET.SubElement(valstage, 'ca:Milestone', {'eventIds': succ+'_s', 'id': activity+'_m_'+succ, 'name': activity+' milestone'})
             vmc = ET.SubElement(vm, 'ca:Condition', {'expression': 'false', 'id': activity+'_m_c', 'language': 'JEXL', 'name': activity+' milestone condition'})
         #activity has other successors than itself
@@ -153,7 +153,8 @@ for activity in pres:
                     vmcexpr = vmcexpr + 'GSM.isStageActive(' + succ + ')'
                     if (succ != succs[activity][-1]):
                         vmcexpr = vmcexpr + ' or '
-            vmc = ET.SubElement(vm, 'ca:Condition', {'expression': vmcexpr, 'id': activity+'_m_c', 'language': 'JEXL', 'name': activity+' milestone condition'})
+            # vmc = ET.SubElement(vm, 'ca:Condition', {'expression': vmcexpr, 'id': activity+'_m_c', 'language': 'JEXL', 'name': activity+' milestone condition'})
+            vmc = ET.SubElement(vm, 'ca:Condition', {'expression': 'GSM.isMilestoneAchieved('+activity+'_run_m) and (' + vmcexpr + ')', 'id': activity+'_m_c', 'language': 'JEXL', 'name': activity+' milestone condition'})
     vpfgexpr = ''
     firstactexp = '('
     #check if activity is the first to be executed
