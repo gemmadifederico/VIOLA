@@ -34,6 +34,8 @@ for index, line in log.iterrows():
     if line["Case_ID"] != caseID:
         # new case
 
+        actConf = dict()
+
         if label != activity:
             fnCase += 1
             
@@ -78,17 +80,23 @@ for index, line in log.iterrows():
         activity = ""
         actCase += 1
         
-    if line["Recognized"] != activity and line["Recognized"] != "":
+    # if line["Recognized"] != activity and line["Recognized"] != "":
+    if line["Recognized"] != activity + "_run" and line["Recognized"][-3:] == "run":
         # new activity recognized
-        if line["Recognized"] == label:
+        print("detected " + line["Recognized"])
+        if line["Recognized"][:-4] == label:
             tpCase += 1
-            activity = line["Recognized"]
+            activity = line["Recognized"][:-4]
+            if actConf[activity] == "onTime":
+                otCase += 1
+            else:
+                ooCase += 1
         else:
             fpCase += 1
-        if line["Conformance"] == "onTime":
-            otCase += 1
-        else:
-            ooCase += 1
+        
+    if line["Recognized"][-3:] != "run" and line["Recognized"] != "":
+        actConf[line["Recognized"]] = line["Conformance"]
+        print("detected " + line["Recognized"])
 
 if label != activity:
     fnCase += 1    
