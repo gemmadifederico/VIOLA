@@ -8,7 +8,8 @@ NUM_THREADS = 4
 caseID = ""
 reset = False
 filterCase = ""
-output = pd.DataFrame(columns=["Case_ID","Timestamp","Type","Sensor","Label","Label_ID","Activity_ID","Recognized"])
+delay = 0
+output = pd.DataFrame(columns=["Case_ID","Timestamp","Type","Sensor","Label","Label_ID","Activity_ID","Recognized","Conformance","Nonce","Delay"])
 lockPrint = Lock()
 lockReset = Lock()    
 
@@ -16,9 +17,11 @@ def startStreaming():
     global reset 
     global caseID
     global output
+    global delay
 
-    # IoTStream = pd.read_csv("normal/Lnormal_labeled_train_trans.csv", header = 0)
-    IoTStream = pd.read_csv("shuffle/Lerror1_labeled.csv", header = 0)
+    # IoTStream = pd.read_csv("normal/Lnormal_labeled_train.csv", header = 0)
+    IoTStream = pd.read_csv("normal/Lnormal_labeled_test.csv", header = 0)
+    # IoTStream = pd.read_csv("shuffle/Lerror1_labeled.csv", header = 0)
     # IoTStream = pd.read_csv("different/Lerror2_labeled.csv", header = 0)
     IoTStream['Timestamp'] = pd.to_datetime(IoTStream['Timestamp'], format="%Y-%m-%d %H:%M:%S.%f")
     updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
@@ -48,12 +51,13 @@ def startStreaming():
     }
 
     for idc, case in IoTStream.groupby("Case_ID"):
-        requests.get(resetGSMurl);
-        requests.get(startGSMurl);
+        requests.get(resetGSMurl)
+        requests.get(startGSMurl)
         for id, window in case.groupby(pd.Grouper(freq="30s", key = "Timestamp")):
             if(window.empty):
                 pass
             else:
+                start = time.time()
                 caseID = window.iloc[0]["Case_ID"]
                 for ix, el in window.iterrows():
                     printRow(el)
@@ -65,6 +69,7 @@ def startStreaming():
                 print(message)
                 # Reset the message
                 message = {key:0 for key in message}
+                delay = (time.time() - start) * 1000
                 # Wait few seconds befor passing to the next window
                 # time.sleep(0.01)
     output.to_csv("output.csv", index=False)
@@ -97,10 +102,11 @@ def index2():
     # t2.start()    
     req = request.args.get("stageName")
     cf = request.args.get("compliance")
+    ets = request.args.get("timestamp")
     # if(req != "process" and req[-3:] != "run"):
-    if(req != "process"):
-        dict = {"Case_ID": caseID, "Recognized": req, "Conformance":cf}
-        printRow(dict)
+    # if(req != "process"):
+    dict = {"Case_ID": caseID, "Recognized": req, "Conformance":cf, "Nonce": ets}
+    printRow(dict)
         # t3 = Thread(target=printRow(req,cf))
         # t3.start()
     lockReset.release()
@@ -109,6 +115,7 @@ def index2():
 def printRow(row):
     lockPrint.acquire()
     global output
+    row["Delay"] = delay
     output = output.append(row, ignore_index=True)
     lockPrint.release()
     return

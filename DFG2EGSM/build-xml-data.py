@@ -9,10 +9,12 @@ import numpy as np
 dfg, start_activities, end_activities = pm4py.objects.dfg.importer.importer.apply('./test-csv.dfg')
 
 # kasteren
-df = pd.read_csv("../kasterenDataset/log_labeled_trans.csv", header = 0).fillna(0)
+df = pd.read_csv("../kasterenDataset/log_labeled_train_trans.csv", header = 0).fillna(0)
+clf = load('../kasterenDataset/test.joblib') 
 
 # linac ltrain
-# df = pd.read_csv("../Experiments - Linac/normal/Ltrain_labeled_trans.csv", header = 0).fillna(0)
+# df = pd.read_csv("../Experiments - Linac/normal/Lnormal_labeled_train_trans.csv", header = 0).fillna(0)
+# clf = load('../Experiments - Linac/normal/test.joblib') 
 
 df.columns = df.columns.str.replace(' ', '_')
 df['Label']=df['Label'].str.replace(' ', '_')
@@ -24,12 +26,10 @@ features.remove("Label")
 # kasteren
 features.remove("Start_time")
 features.remove("End_time")
-clf = load('../kasterenDataset/test.joblib') 
 
 # linac 
 # features.remove("Start_Time")
 # features.remove("End_Time")
-# clf = load('../Experiments - Linac/normal/test.joblib') 
 
 
 def create_rules_recursive(clf,features,node,expression,rules):

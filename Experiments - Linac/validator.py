@@ -20,9 +20,14 @@ actTotal = 0
 otTotal = 0
 ooTotal = 0
 
+meanDelay = 0
+maxDelay = 0
+minDelay = 100000
+events = 0
+
 actConf = dict()
 
-output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor_ID","Label","Label_ID","Activity_ID","Val","Recognized","Conformance"])
+output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor_ID","Label","Label_ID","Activity_ID","Val","Recognized","Conformance","Delay"])
 
 
 # log = pd.read_csv("output_test.csv", header = 0)
@@ -31,7 +36,15 @@ log.fillna('', inplace=True)
 
 for index, line in log.iterrows():
 
-    print(str(line["Case_ID"]) + "," + str(line["Label"]) + "," + str(line["Recognized"]))
+    if line["Delay"] > 0:
+        if minDelay > line["Delay"]:
+            minDelay = line["Delay"]
+        if maxDelay < line["Delay"]:
+            maxDelay = line["Delay"]
+        meanDelay = meanDelay + line["Delay"]
+        events += 1
+
+    # print(str(line["Case_ID"]) + "," + str(line["Label"]) + "," + str(line["Recognized"]))
 
     if line["Case_ID"] != caseID:
         # new case
@@ -85,7 +98,7 @@ for index, line in log.iterrows():
     # if line["Recognized"] != activity and line["Recognized"] != "":
     if line["Recognized"] != activity + "_run" and line["Recognized"][-3:] == "run":
         # new activity recognized
-        print("detected " + line["Recognized"])
+        # print("detected " + line["Recognized"])
         if line["Recognized"][:-4] == label:
             tpCase += 1
             activity = line["Recognized"][:-4]
@@ -96,9 +109,9 @@ for index, line in log.iterrows():
         else:
             fpCase += 1
         
-    if line["Recognized"][-3:] != "run" and line["Recognized"] != "":
+    if line["Recognized"][-3:] != "run" and line["Recognized"] != "" and line["Recognized"] != "Process":
         actConf[line["Recognized"]] = line["Conformance"]
-        print("detected " + line["Recognized"])
+        # print("detected " + line["Recognized"])
 
 if label != activity:
     fnCase += 1    
@@ -126,4 +139,7 @@ print("Total activities for all cases: " + str(actTotal))
 print("On-time activities for all cases: " + str(otTotal))
 print("Out-of-order activities for all cases: " + str(ooTotal))
 print("Overall conformance: " + str(otTotal/(otTotal+ooTotal)))
+print("Minimum processing time: " + str(minDelay))
+print("Maximum processing time: " + str(maxDelay))
+print("Mean processing time: " + str(meanDelay / events))
 print()

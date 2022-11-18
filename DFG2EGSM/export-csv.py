@@ -3,13 +3,12 @@ import pandas as pd
 
 # kasteren
 dateCols = ['Start time','End time']
-dataframe = pd.read_csv('../kasterenDataset/log_labeled.csv', sep=',', parse_dates=dateCols)
+dataframe = pd.read_csv('../kasterenDataset/log_labeled_train.csv', sep=',', parse_dates=dateCols)
 
 # linac
 # dateCols = ['Timestamp']
-# dataframe = pd.read_csv('../Experiments - Linac/normal/Ltrain_labeled.csv', sep=',', parse_dates=dateCols)
+# dataframe = pd.read_csv('../Experiments - Linac/normal/Lnormal_labeled_train.csv', sep=',', parse_dates=dateCols)
 
-#dataframe = pd.read_csv('./test2.csv', sep=';', parse_dates=dateCols)
 dataframe = dataframe.drop_duplicates(subset=['Case_ID', 'Label'], keep='first')
 dataframe = dataframe.rename(columns={'Case_ID': 'case:concept:name', 'Label':'concept:name'})
 
