@@ -11,3 +11,7 @@
 /kasterenDataset/log_windowed.csv
 /kasterenDataset/test.joblib
 /kasterenDataset/mydecisiontree_classifier_test.png
+Experiments - Linac/different/Lerror2_labeled.csv
+Experiments - Linac/normal/Ltrain_labeled.csv
+Experiments - Linac/normal/Ltrain_labeled_trans.csv
+Experiments - Linac/shuffle/Lerror1_labeled.csv
