@@ -17,8 +17,7 @@ def startStreaming():
     global caseID
     global output
 
-    # IoTStream = pd.read_csv("normal/Ltrain_labeled_short.csv", header = 0)
-    # IoTStream = pd.read_csv("normal/Ltrain_labeled.csv", header = 0)
+    # IoTStream = pd.read_csv("normal/Lnormal_labeled_train_trans.csv", header = 0)
     IoTStream = pd.read_csv("shuffle/Lerror1_labeled.csv", header = 0)
     # IoTStream = pd.read_csv("different/Lerror2_labeled.csv", header = 0)
     IoTStream['Timestamp'] = pd.to_datetime(IoTStream['Timestamp'], format="%Y-%m-%d %H:%M:%S.%f")

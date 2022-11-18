@@ -18,7 +18,7 @@ def startStreaming():
     global caseID
     global output
 
-    IoTStream = pd.read_csv("log_labeled.csv", header = 0)
+    IoTStream = pd.read_csv("Log_labeled_test.csv", header = 0)
     IoTStream['Start time'] = pd.to_datetime(IoTStream['Start time'], format='%Y-%m-%d %H:%M:%S')
     updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
     resetGSMurl = "http://127.0.0.1:8083/api/reset"

@@ -14,4 +14,11 @@
 Experiments - Linac/different/Lerror2_labeled.csv
 Experiments - Linac/normal/Ltrain_labeled.csv
 Experiments - Linac/normal/Ltrain_labeled_trans.csv
+Experiments - Linac/normal/Lnormal_labeled_train.csv
+Experiments - Linac/normal/Lnormal_labeled_test.csv
+Experiments - Linac/normal/Lnormal_labeled_train_trans.csv
 Experiments - Linac/shuffle/Lerror1_labeled.csv
+
+kasterenDataset/Log_labeled_train.csv
+kasterenDataset/Log_labeled_test.csv
+kasterenDataset/Log_labeled_train_trans.csv
