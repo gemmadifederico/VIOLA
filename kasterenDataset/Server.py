@@ -8,16 +8,18 @@ NUM_THREADS = 4
 caseID = ""
 reset = False
 filterCase = ""
-delay = 0
-output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor","Label","Activity_ID","Recognized","Conformance","Nonce","Delay"])
+
+processingTime = list()
+
+output = pd.DataFrame(columns=["Case_ID","Start time","End time","Sensor","Label","Activity_ID","Recognized","Conformance","Nonce"])
 lockPrint = Lock()
-lockReset = Lock() 
+lockReset = Lock()
 
 def startStreaming():
     global reset 
     global caseID
     global output
-    global delay
+    global processingTime
 
     IoTStream = pd.read_csv("Log_labeled_test.csv", header = 0)
     # IoTStream = pd.read_csv("Log_labeled_train.csv", header = 0)
@@ -50,28 +52,27 @@ def startStreaming():
                 pass
             else:
                 start = time.time()
+                eventCount = 0
                 caseID = window.iloc[0]["Case_ID"]
                 for ix, el in window.iterrows():
                     printRow(el)
                     sensor_name = el["Sensor"]
                     # Set the sensor identifier as 1 in the given window
                     message[sensor_name] = 1
+                    eventCount += 1
                 if caseID == filterCase or filterCase == "":
                     # Send the message
                     requests.post(updateInfoModelurl, json = message)
-                    print(message)
                     # Reset the message
                     message = {key:0 for key in message}
                     delay = (time.time() - start) * 1000
+                    processingTime.append({"events": eventCount, "delay": delay})
                     # Wait few seconds befor passing to the next window
-                    time.sleep(1)
+                    # time.sleep(1)
     output.to_csv("output.csv", index=False)
-
-
-# def resetCounter():
-#     global reset
-#     reset = True
-#     return
+    for item in processingTime:
+        print(str(item["events"]) + ", " + str(item["delay"]))
+    print(len(processingTime))
 
 from flask import Flask, request
 app = Flask(__name__)
@@ -92,24 +93,17 @@ def index1():
 def index2():
     lockReset.acquire()
     print("RESET CALL RECEIVED")
-    # t2 = Thread(target= resetCounter())
-    # t2.start()    
     req = request.args.get("stageName")
     cf = request.args.get("compliance")
     ets = request.args.get("timestamp")
-    # if(req != "process" and req[-3:] != "run"):
-    # if(req != "process"):
     dict = {"Case_ID": caseID, "Recognized": req, "Conformance":cf, "Nonce": ets}
     printRow(dict)
-        # t3 = Thread(target=printRow(req,cf))
-        # t3.start()
     lockReset.release()
     return "DONE"
 
 def printRow(row):
     lockPrint.acquire()
     global output
-    row["Delay"] = delay
     output = output.append(row, ignore_index=True)
     lockPrint.release()
     return
