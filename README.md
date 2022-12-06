@@ -54,25 +54,25 @@ node server.js
 
 Process the stream of data:
 - Run the CEP system:
-* Linac:
-```sh
-python Server.py 
-```
-* Kasteren - l-base:
-```sh
-python Server-lnormal.py 
-```
-* Kasteren - l-error-1:
-```sh
-python Server-lerror1.py 
-```
-* Kasteren - l-error-2:
-```sh
-python Server-lerror2.py 
-```
+    - Linac:
+    ```sh
+    python Server.py 
+    ```
+    - Kasteren - l-base:
+    ```sh
+    python Server-lnormal.py 
+    ```
+    - Kasteren - l-error-1:
+    ```sh
+    python Server-lerror1.py 
+    ```
+    - Kasteren - l-error-2:
+    ```sh
+    python Server-lerror2.py 
+    ```
 - Start streaming events:
-* Make a REST GET call to the following endpoint (e.g., with a web browser, cURL or Postman):
-http://localhost:8080/api/start
+    * Make a REST GET call to the following endpoint (e.g., with a web browser, cURL or Postman):
+    http://localhost:8080/api/start
 
 And visualize the results!
 
