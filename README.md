@@ -23,29 +23,55 @@ run LogPreprocessing - Windowing.ipynb
 ```
 
 Derive a Decision Tree and convert it to rules:
+
 ```sh
 run Dtree - Classifier.ipynb
 ```
 
 Discover a Directly-Follows Graph:
+
 ```sh
-... 
+python discover-dfg.py
 ```
 
 Create the EGSM process model:
+
 ```sh
-... 
+python build-egsm.py 
 ```
 
 ### Online Phase
+
 Run the EGSM engine:
+
+- Download the [SMARTifact E-GSM Engine](https://bitbucket.org/polimiisgroup/egsmengine/src/master/)
+- Copy the files siena.xml and infoModel.xsd produced during the offline phase inside the data/dfg folder (create the folder if does not exist)
+- Start the engine:
+
 ```sh
-... 
+node server.js 
 ```
 
 Process the stream of data:
+- Linac:
 ```sh
 python Server.py 
 ```
+- Kasteren - lnormal:
+```sh
+python Server-lnormal.py 
+```
+- Kasteren - lerror1:
+```sh
+python Server-lerror1.py 
+```
+- Kasteren - lerror2:
+```sh
+python Server-lerror2.py 
+```
 
 And visualize the results!
+
+```sh
+python validator.py
+```

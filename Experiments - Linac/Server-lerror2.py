@@ -18,10 +18,7 @@ lockReset = Lock()
 def startStreaming():
     global processingTime
 
-    # IoTStream = pd.read_csv("normal/Lnormal_labeled_train.csv", header = 0)
-    IoTStream = pd.read_csv("normal/Lnormal_labeled_test.csv", header = 0)
-    # IoTStream = pd.read_csv("shuffle/Lerror1_labeled.csv", header = 0)
-    # IoTStream = pd.read_csv("different/Lerror2_labeled.csv", header = 0)
+    IoTStream = pd.read_csv("different/Lerror2_labeled.csv", header = 0)
     IoTStream['Timestamp'] = pd.to_datetime(IoTStream['Timestamp'], format="%Y-%m-%d %H:%M:%S.%f")
     updateInfoModelurl = "http://127.0.0.1:8083/api/updateInfoModel?name=SensorData"
     resetGSMurl = "http://127.0.0.1:8083/api/reset"
