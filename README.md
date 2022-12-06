@@ -53,22 +53,26 @@ node server.js
 ```
 
 Process the stream of data:
-- Linac:
+- Run the CEP system:
+* Linac:
 ```sh
 python Server.py 
 ```
-- Kasteren - lnormal:
+* Kasteren - l-base:
 ```sh
 python Server-lnormal.py 
 ```
-- Kasteren - lerror1:
+* Kasteren - l-error-1:
 ```sh
 python Server-lerror1.py 
 ```
-- Kasteren - lerror2:
+* Kasteren - l-error-2:
 ```sh
 python Server-lerror2.py 
 ```
+- Start streaming events:
+* Make a REST GET call to the following endpoint (e.g., with a web browser, cURL or Postman):
+http://localhost:8080/api/start
 
 And visualize the results!
 
