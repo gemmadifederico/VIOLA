@@ -19,25 +19,25 @@ VIOLA requires [Python](https://www.python.org/) and [Node.js](https://nodejs.or
 Pre-process the labeled sensor log in order to obtain a format suitable for the classification algorithm.
 _For example:_
 ```python
-run Experiments - Linac/normal/LogPreprocessing - Windowing.ipynb
+run "Experiments - Linac/normal/LogPreprocessing - Windowing.ipynb"
 ```
 
 Derive a Decision Tree and convert it to rules.
 _For example:_
 ```sh
-run Experiments - Linac/normal/Dtree - Classifier.ipynb
+run "Experiments - Linac/normal/Dtree - Classifier.ipynb"
 ```
 
 Discover a Directly-Follows Graph.
 _For example:_
 ```python
-python Experiments - Linac/discover-dfg.py
+python "Experiments - Linac/discover-dfg.py"
 ```
 
 Create the EGSM process model.
 _For example:_
 ```python
-python Experiments - Linac/build-egsm.py 
+python "Experiments - Linac/build-egsm.py"
 ```
 
 ### Online Phase
@@ -54,7 +54,7 @@ Process the stream of data:
 - Run the CEP system. 
 _For example:_
     ```python
-    python Experiments - Linac/Server-lerror1.py
+    python "Experiments - Linac/Server-lerror1.py"
     ```
 - Start streaming events.
     Make a REST GET call to the following endpoint (e.g., with a web browser, cURL or Postman):
@@ -63,5 +63,5 @@ _For example:_
 And visualize the results!
 _For example:_
 ```python
-python Experiments - Linac/validator.py
+python "Experiments - Linac/validator.py"
 ```
