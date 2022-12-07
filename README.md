@@ -16,66 +16,52 @@ VIOLA requires [Python](https://www.python.org/) and [Node.js](https://nodejs.or
 
 ### Offline Phase
 
-Pre-process the labeled sensor log:
-
-```sh
-run LogPreprocessing - Windowing.ipynb
+Pre-process the labeled sensor log in order to obtain a format suitable for the classification algorithm.
+_For example:_
+```python
+run Experiments - Linac/normal/LogPreprocessing - Windowing.ipynb
 ```
 
-Derive a Decision Tree and convert it to rules:
-
+Derive a Decision Tree and convert it to rules.
+_For example:_
 ```sh
-run Dtree - Classifier.ipynb
+run Experiments - Linac/normal/Dtree - Classifier.ipynb
 ```
 
-Discover a Directly-Follows Graph:
-
-```sh
-python discover-dfg.py
+Discover a Directly-Follows Graph.
+_For example:_
+```python
+python Experiments - Linac/discover-dfg.py
 ```
 
-Create the EGSM process model:
-
-```sh
-python build-egsm.py 
+Create the EGSM process model.
+_For example:_
+```python
+python Experiments - Linac/build-egsm.py 
 ```
 
 ### Online Phase
 
 Run the EGSM engine:
-
 - Download the [SMARTifact E-GSM Engine](https://bitbucket.org/polimiisgroup/egsmengine/src/master/)
 - Copy the files siena.xml and infoModel.xsd produced during the offline phase inside the data/dfg folder (create the folder if does not exist)
 - Start the engine:
-
-```sh
-node server.js 
-```
+    ```sh
+    node server.js 
+    ```
 
 Process the stream of data:
-- Run the CEP system:
-    - Linac:
-    ```sh
-    python Server.py 
+- Run the CEP system. 
+_For example:_
+    ```python
+    python Experiments - Linac/Server-lerror1.py
     ```
-    - Kasteren - l-base:
-    ```sh
-    python Server-lnormal.py 
-    ```
-    - Kasteren - l-error-1:
-    ```sh
-    python Server-lerror1.py 
-    ```
-    - Kasteren - l-error-2:
-    ```sh
-    python Server-lerror2.py 
-    ```
-- Start streaming events:
-    * Make a REST GET call to the following endpoint (e.g., with a web browser, cURL or Postman):
+- Start streaming events.
+    Make a REST GET call to the following endpoint (e.g., with a web browser, cURL or Postman):
     http://localhost:8080/api/start
 
 And visualize the results!
-
-```sh
-python validator.py
+_For example:_
+```python
+python Experiments - Linac/validator.py
 ```
